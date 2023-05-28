@@ -7,7 +7,7 @@ Standard equation:
 &nbsp; If a patient's COMER score is greater than or equal to 2.4, they will be predicted as Severe.
 
  <p align="center">
-  <img src="https://raw.githubusercontent.com/lehieu2307/ShinyAppCovid/main/About_1_COMER_standard.png"  title="hover text" style="max-width: 80%; max-height: 80%;">
+  <img src="https://raw.githubusercontent.com/lehieu2307/ShinyAppCovid/main/About_1_COMER_standard.png"  title="Standard COMER score equation" style="max-width: 80%; max-height: 80%;">
 </p>
 
 Age adjusted equation:
@@ -15,7 +15,7 @@ Age adjusted equation:
 &nbsp; If a patient's age adjusted COMER score is greater than or equal to 2.46, they will be predicted as Severe.
 
  <p align="center">
-  <img src="https://raw.githubusercontent.com/lehieu2307/ShinyAppCovid/main/About_2_COMER_extend.png"  title="hover text" style="max-width: 80%; max-height: 80%;">
+  <img src="https://raw.githubusercontent.com/lehieu2307/ShinyAppCovid/main/About_2_COMER_extend.png"  title="Age adjusted COMER score equation" style="max-width: 80%; max-height: 80%;">
 </p>
 
     Where:
@@ -34,7 +34,7 @@ Due to the shortage of healthcare facilities during the global-scale COVID-19 pa
 The COMER score is highly specific for SARS-CoV-2 infection compared to Respiratory Syncytial Virus and other respiratory viruses. The tool's performance is consistent across the testing set and independent validation cohort (AUCs are 0.85 and 0.83, respectively), demonstrating a stable model with minimal overfitting and good discrimination between severe and non-severe progressors. The COMER score displays strong correlations with two other commonly used COVID-19 severity clinical scales: the WHO Ordinal  Scale and the COVID-19 GRAM risk-score. COMER can predict the outcome of interest early.
 
  <p align="center">
-  <img src="https://raw.githubusercontent.com/lehieu2307/ShinyAppCovid/main/About_3_good_COMER.png"  title="hover text" style="max-width: 80%; max-height: 80%;">
+  <img src="https://raw.githubusercontent.com/lehieu2307/ShinyAppCovid/main/About_3_good_COMER.png"  title="How good is COMER score?" style="max-width: 80%; max-height: 80%;">
 </p>
 
 The COMER score stands out from other COVID-19 disease prediction tools due to its simplicity and user-friendliness. This innovative tool might bring a fresh perspective to the approach to research and treatment for COVID-19 patients. Unlike other prediction tools that rely on complex models, numerous clinical variables, or subjective predictors that require professional training, the COMER score is a straightforward and routine application tool that can be easily utilized by healthcare professionals. With its ability to accurately predict COVID-19 severity and outcome, the COMER score is a powerful tool in the fight against the pandemic.
@@ -65,5 +65,5 @@ The detail report of COMER score: @@@
 *[10] Pacific Informatics, Ho Chi Minh city, Vietnam.*
  
  <p align="center">
-  <img src="https://raw.githubusercontent.com/lehieu2307/ShinyAppCovid/main/Avatar.png"  title="hover text" style="max-width: 100%; max-height: 100%;">
+  <img src="https://raw.githubusercontent.com/lehieu2307/ShinyAppCovid/main/Avatar.png"  title="Authors of COMER score" style="max-width: 100%; max-height: 100%;">
 </p>
