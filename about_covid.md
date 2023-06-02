@@ -66,7 +66,7 @@ COMER score online tool source code: https://github.com/lehieu2307/ShinyAppCovid
 _[1] Faculty of Medicine, Chulalongkorn University, Bangkok, Thailand._
 _[2] Faculty of Medicine, Can Tho University of Medicine and Pharmacy, Vietnam._
 _[3] Stem cell Laboratory, Institute of Food and Biotechnology, Can Tho University, Can Tho City, Vietnam._
-_[4] Computer Science faculty, Hue University of Sciences, Hue city Vietnam._
+_[4] Department of Software Technology, Faculty of Information Technology, Hue University, Hue city, Vietnam._
 _[5] Research Center for Infectious Diseases, International University, Vietnam National University of Ho Chi Minh City, Vietnam._
 _[6] Excellence Center for Critical Care Nephrology, King Chulalongkorn Memorial Hospital, Bangkok, Thailand._
 _[7] Center of Excellence in Critical Care Nephrology, Faculty of Medicine, Chulalongkorn University, Bangkok, Thailand._
