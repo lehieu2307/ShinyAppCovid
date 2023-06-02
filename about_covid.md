@@ -52,27 +52,26 @@ COMER score online tool source code: https://github.com/lehieu2307/ShinyAppCovid
 
 #### Members of Team
 
-1. Tran, Nguyen Trong Phu [1, 2]
-2. Tran, Ba Thien [3]
-3. Le, Van Hieu[4]
-4. Le, Nhat Thong[5]
-5. TUmaporn Limothai [2, 6, 7]
-6. Nattachai Srisawat [2, 6, 8, 9]
-7. Tran, Thi Thanh Khuong [3]
-8. Luu, Phuc Loi [10]
+1. Tran Nguyen Trong Phu [1, 2]
+2. Tran Ba Thien [3]
+3. Le Van Hieu [4]
+4. Le Nhat Thong [5]
+5. Tran Thi Thanh Khuong [3]
+6. Limothai Umaporn [6, 7]
+7. Srisawat Nattachai [6, 7, 8]
+8. Luu Phuc Loi [9]
 
 ####
 
-_[1] Can Tho University of Medicine and Pharmacy, Can Tho city, Vietnam._
-_[2] Center of Excellence in Critical Care Nephrology, Faculty of Medicine, Chulalongkorn University, Bangkok, Thailand._
+_[1] Faculty of Medicine, Chulalongkorn University, Bangkok, Thailand._
+_[2] Faculty of Medicine, Can Tho University of Medicine and Pharmacy, Vietnam._
 _[3] Stem cell Laboratory, Institute of Food and Biotechnology, Can Tho University, Can Tho City, Vietnam._
 _[4] Computer Science faculty, Hue University of Sciences, Hue city Vietnam._
-_[5] Research Center for Infectious Diseases, International University, Ho Chi Minh City, Vietnam._
+_[5] Research Center for Infectious Diseases, International University, Vietnam National University of Ho Chi Minh City, Vietnam._
 _[6] Excellence Center for Critical Care Nephrology, King Chulalongkorn Memorial Hospital, Bangkok, Thailand._
-_[7] Tropical Medicine Cluster, Chulalongkorn University, Bangkok, Thailand._
-_[8] Division of Nephrology, Department of Medicine, Faculty of Medicine, Chulalongkorn University, Bangkok, Thailand._
-_[9] Academy of Science, Royal Society of Thailand, Bangkok, Thailand._
-_[10] Pacific Informatics, Ho Chi Minh city, Vietnam._
+_[7] Center of Excellence in Critical Care Nephrology, Faculty of Medicine, Chulalongkorn University, Bangkok, Thailand._
+_[8] Academy of Science, Royal Society of Thailand, Bangkok, Thailand._
+_[9] Pacific Informatics, Ho Chi Minh city, Vietnam._
 
  <p align="center">
   <img src="https://raw.githubusercontent.com/lehieu2307/ShinyAppCovid/main/Avatar.png"  title="Authors of COMER score" style="max-width: 100%; max-height: 100%;">
