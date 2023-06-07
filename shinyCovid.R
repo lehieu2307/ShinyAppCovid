@@ -122,8 +122,16 @@ ui <- fluidPage(
       "Multiple Prediction",
       sidebarPanel(
         HTML("<h3>Input parameters</h3>"),
+        strong(HTML("1. Click here to download example data:")),
+        
+        # uiOutput(outputId = "align_guide"),
+        p(),
+        downloadButton("downloadData", "Download example data:"),
+        
+        br(),
+        br(),
         # input file
-        fileInput("file1", "Choose TSV File", accept = ".tsv"),
+        fileInput("file1", "2. Choose TSV File:", accept = ".tsv"),
         fluidRow(
           column(
             4,
@@ -161,8 +169,15 @@ ui <- fluidPage(
       "Single Prediction",
       # Input values
       sidebarPanel(
+        HTML("<h3>Input parameters</h3>"),
+        strong(HTML("1. Click here to download example data:")),
+        p(),
+        downloadButton("downloadData2", "Download example data:"),
+        
+        br(),
+        br(),
         # input file
-        fileInput("file0", "Choose TSV File", accept = ".tsv"),
+        fileInput("file0", "2. Choose TSV File:", accept = ".tsv"),
         
         actionButton("submitbutton00", "Prediction", class = "btn btn-primary")
       ),
@@ -172,7 +187,7 @@ ui <- fluidPage(
         DT::dataTableOutput('row_modif'),
         br(),
         fluidRow(
-          column(2, align = "center", ),
+          column(2, align = "center",),
           column(
             8,
             align = "center",
@@ -181,7 +196,7 @@ ui <- fluidPage(
                      align = "right",
                      div(uiOutput("avatarUser"), align = "right"),
                      br(),
-                     br(),),
+                     br(), ),
               column(
                 6,
                 align = "left",
@@ -238,10 +253,10 @@ ui <- fluidPage(
                          br(),
                          
                        ),
-                     ),),
+                     ), ),
               
               column(2, align = "center",
-                     uiOutput("image_chr"),),
+                     uiOutput("image_chr"), ),
               column(
                 6,
                 br(),
@@ -269,7 +284,7 @@ ui <- fluidPage(
                 )
               )
             ),
-            fluidRow(column(4,),
+            fluidRow(column(4, ),
                      column(2,
                             uiOutput(
                               "uibuttonwithoutage"
@@ -326,7 +341,27 @@ server <- function(input, output) {
     test
   })
   
+  output$downloadData <- downloadHandler(
+    filename = function() {
+      "COMERscore_shinyapp_example.tsv"
+    },
+    content = function(file) {
+      url <-
+        "https://raw.githubusercontent.com/lehieu2307/ShinyAppCovid/main/COMERscore_shinyapp_example.tsv"
+      download.file(url, destfile = file, method = "auto")
+    }
+  )
   
+  output$downloadData2 <- downloadHandler(
+    filename = function() {
+      "COMERscore_shinyapp_example.tsv"
+    },
+    content = function(file) {
+      url <-
+        "https://raw.githubusercontent.com/lehieu2307/ShinyAppCovid/main/COMERscore_shinyapp_example.tsv"
+      download.file(url, destfile = file, method = "auto")
+    }
+  )
   
   observeEvent(input$submitbutton00, {
     test <- input_file0()
@@ -366,7 +401,7 @@ server <- function(input, output) {
     
     output$plot_cpg01 <- renderUI({
       req(input$row_modif_rows_selected)
-      datarow <- data[input$row_modif_rows_selected,]
+      datarow <- data[input$row_modif_rows_selected, ]
       cpg01 <- datarow[1, DMPs_model[1]] * 100
       prgoressBar(cpg01,
                   color = "primary",
@@ -378,7 +413,7 @@ server <- function(input, output) {
     # output with names
     output$content_name <- renderText({
       req(input$row_modif_rows_selected)
-      datarow <- data[input$row_modif_rows_selected,]
+      datarow <- data[input$row_modif_rows_selected, ]
       paste("ID: ",
             data[input$row_modif_rows_selected, "sample_ID"])
     })
@@ -386,7 +421,7 @@ server <- function(input, output) {
     # output with age
     output$content_age <- renderText({
       req(input$row_modif_rows_selected)
-      datarow <- data[input$row_modif_rows_selected,]
+      datarow <- data[input$row_modif_rows_selected, ]
       # data[input$row_modif_rows_selected,"age"]
       sprintf("Age: %s", data[input$row_modif_rows_selected, "age"])
       
@@ -448,7 +483,7 @@ server <- function(input, output) {
     
     output$content_cpg05 <- renderText({
       req(input$row_modif_rows_selected)
-      datarow <- data[input$row_modif_rows_selected,]
+      datarow <- data[input$row_modif_rows_selected, ]
       if (id_button$number_button == 1) {
         paste(
           "COMER score = 6.9651  -  3.2713 ×",
@@ -476,7 +511,7 @@ server <- function(input, output) {
     
     output$content_cpg06 <- renderText({
       req(input$row_modif_rows_selected)
-      datarow <- data[input$row_modif_rows_selected, ]
+      datarow <- data[input$row_modif_rows_selected,]
       if (id_button$number_button == 1) {
         result_score <-
           6.9651 - 3.2713 * datarow[1, DMPs_model[1]] -  6.6951 * datarow[1, DMPs_model[2]] - 6.3909 *
@@ -501,7 +536,7 @@ server <- function(input, output) {
     
     output$avatarUser <- renderUI({
       req(input$row_modif_rows_selected)
-      datarow <- data[input$row_modif_rows_selected,]
+      datarow <- data[input$row_modif_rows_selected, ]
       index_sex <- data[input$row_modif_rows_selected, "sex"]
       
       if (index_sex == "M") {
@@ -540,7 +575,7 @@ server <- function(input, output) {
           scrollX = TRUE,
           scrollY = "250px",
           
-          lengthMenu = list(c(5, 10, 30, 50, -1),
+          lengthMenu = list(c(5, 10, 30, 50,-1),
                             c('5', '10', '30', '50', 'All'))
         )
       )
@@ -548,7 +583,7 @@ server <- function(input, output) {
     
     output$plot_cpg01 <- renderUI({
       req(input$row_modif_rows_selected)
-      datarow <- data[input$row_modif_rows_selected,]
+      datarow <- data[input$row_modif_rows_selected, ]
       cpg01 <- datarow[1, DMPs_model[1]] * 100
       prgoressBar(cpg01,
                   color = "primary",
@@ -558,7 +593,7 @@ server <- function(input, output) {
     
     output$plot_cpg02 <- renderUI({
       req(input$row_modif_rows_selected)
-      datarow <- data[input$row_modif_rows_selected,]
+      datarow <- data[input$row_modif_rows_selected, ]
       cpg02 <- datarow[1, DMPs_model[2]] * 100
       prgoressBar(cpg02,
                   color = "primary",
@@ -568,7 +603,7 @@ server <- function(input, output) {
     
     output$plot_cpg03 <- renderUI({
       req(input$row_modif_rows_selected)
-      datarow <- data[input$row_modif_rows_selected,]
+      datarow <- data[input$row_modif_rows_selected, ]
       cpg03 <- datarow[1, DMPs_model[3]] * 100
       prgoressBar(cpg03,
                   color = "primary",
@@ -633,7 +668,7 @@ server <- function(input, output) {
     
     output$dotplot_prediction <- renderPlotly({
       req(input$row_modif_rows_selected)
-      userCustom <- data[input$row_modif_rows_selected,]
+      userCustom <- data[input$row_modif_rows_selected, ]
       userCustom$COMER_standard <-
         predict(formula_standard, userCustom)
       userCustom$predictive_status_standard <-
@@ -680,7 +715,11 @@ server <- function(input, output) {
           ) +
           geom_point(
             data = userCustom,
-            aes(x = round(COMER_standard, 2), y = 0),
+            aes(
+              x = round(COMER_standard, 2),
+              y = 0,
+              text = paste0("COMER score: ", sprintf("%.2f", COMER_standard))
+            ),
             shape = 23,
             stroke = 1,
             color = "black",
@@ -705,12 +744,12 @@ server <- function(input, output) {
           annotate(
             "text",
             x = c(-2.5, round(userCustom$COMER_standard, 2), 4.6),
-            y = c(0.8,-0.1, 0.8),
+            y = c(0.8, -0.1, 0.8),
             size = c(6, 4, 6),
             label = c("Non-severe", "Current patient", "Severe"),
             color = c("#CC79A7", "#008080", "#FC4E07")
           )
-        ggplotly(g_standard)
+        ggplotly(g_standard, tooltip = list("text"))
       } else if (id_button$number_button == 2) {
         g_age_adj <- ggplot(fullDT, aes(x = COMER_extend)) +
           theme_light() +
@@ -743,7 +782,14 @@ server <- function(input, output) {
           ) +
           geom_point(
             data = userCustom,
-            aes(x = round(COMER_extend, 2), y = 0),
+            aes(
+              x = round(COMER_extend, 2),
+              y = 0,
+              text = paste0(
+                "Age adjusted COMER score: ",
+                sprintf("%.2f", COMER_extend)
+              )
+            ),
             shape = 23,
             stroke = 1,
             color = "black",
@@ -769,11 +815,12 @@ server <- function(input, output) {
           annotate(
             "text",
             x = c(-2.5, round(userCustom$COMER_standard, 2), 4.6),
-            y = c(0.8,-0.1, 0.8),
+            y = c(0.8, -0.1, 0.8),
             size = c(6, 4, 6),
             label = c("Non-severe", "Current patient", "Severe"),
             color = c("#CC79A7", "#008080", "#FC4E07")
           )
+        ggplotly(g_age_adj, tooltip = list("text"))
       }
     })
   })
@@ -811,7 +858,7 @@ server <- function(input, output) {
           )),
           scrollX = TRUE,
           scrollY = "250px",
-          lengthMenu = list(c(5, 10, 30, 50, -1),
+          lengthMenu = list(c(5, 10, 30, 50,-1),
                             c('5', '10', '30', '50', 'All'))
         )
       )
@@ -853,7 +900,7 @@ server <- function(input, output) {
     })
     
     output$plot2 <- renderDataTable({
-      dataplot2 <- test_button01[,-(2:(ncol(test_button01) - 2))]
+      dataplot2 <- test_button01[, -(2:(ncol(test_button01) - 2))]
       datatable(
         dataplot2,
         extensions = 'Buttons',
@@ -866,7 +913,7 @@ server <- function(input, output) {
           scrollY = "250px",
           dom = 'Bltp',
           buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
-          lengthMenu = list(c(5, 10, 30, 50, -1),
+          lengthMenu = list(c(5, 10, 30, 50,-1),
                             c('5', '10', '30', '50', 'All'))
         )
       )
@@ -902,7 +949,7 @@ server <- function(input, output) {
           )),
           scrollX = TRUE,
           scrollY = "250px",
-          lengthMenu = list(c(5, 10, 30, 50, -1),
+          lengthMenu = list(c(5, 10, 30, 50,-1),
                             c('5', '10', '30', '50', 'All'))
         )
       )
@@ -947,7 +994,7 @@ server <- function(input, output) {
     
     output$plot2 <-
       renderDataTable({
-        dataplot2 <- test_button02[,-(2:(ncol(test_button02) - 2))]
+        dataplot2 <- test_button02[, -(2:(ncol(test_button02) - 2))]
         dataplot2$COMER_score <- round(dataplot2$COMER_score, 2)
         datatable(
           dataplot2,
@@ -961,7 +1008,7 @@ server <- function(input, output) {
             scrollY = "250px",
             dom = 'Bltp',
             buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
-            lengthMenu = list(c(5, 10, 30, 50, -1),
+            lengthMenu = list(c(5, 10, 30, 50,-1),
                               c('5', '10', '30', '50', 'All'))
           )
         )
