@@ -132,19 +132,10 @@ ui <- fluidPage(
         br(),
         # input file
         fileInput("file_data_multiple", "2. Choose TSV File:", accept = ".tsv"),
-        fluidRow(
-          column(
-            4,
-            actionButton("buttonPreWithoutAge", "Prediction without age", class = "btn btn-primary")
-          ),
-          br(),
-          br(),
-          br(),
-          column(
-            4,
-            actionButton("buttonPreAge", "Prediction with age", class = "btn btn-primary")
-          )
-        ),
+        fluidRow(column(
+          4,
+          actionButton("buttonPreMultiple", "Prediction", class = "btn btn-primary")
+        ),),
       ),
       br(),
       br(),
@@ -153,17 +144,33 @@ ui <- fluidPage(
         column(
           width = 12,
           align = "center",
+          style = "width:100%",
           
-          DT::dataTableOutput('userdata_table'),
-          br(),
-          br(),
-          br(),
-          box(plotlyOutput("graph")),
-          box(height = 400, DT::dataTableOutput("plot2")),
-          br(),
-          br(),
+          DT::dataTableOutput('userdata_table')
+        )
+      ),
+      br(),
+      uiOutput("without_age_text"),
+      fluidRow(
+        column(width = 6,
+               plotlyOutput("graph")),
+        column(
+          width = 6,
+          height = 400,
+          DT::dataTableOutput("plot2")
+        )
+      ),
+      uiOutput("with_age_text"),
+      fluidRow(
+        column(width = 6,
+               plotlyOutput("graph2")),
+        column(
+          width = 6,
+          height = 400,
+          DT::dataTableOutput("plot3")
         )
       )
+      
     ),
     tabPanel(
       "Single Prediction",
@@ -185,18 +192,20 @@ ui <- fluidPage(
         12,
         align = "center",
         DT::dataTableOutput('row_modif'),
-        br(),
+        
         fluidRow(
-          column(2, align = "center",),
+          column(2, align = "center", ),
           column(
             8,
             align = "center",
+            uiOutput("instruct_text"),
+            br(),
             fluidRow(
               column(2,
                      align = "right",
                      div(uiOutput("avatarUser"), align = "right"),
                      br(),
-                     br(), ),
+                     br(),),
               column(
                 6,
                 align = "left",
@@ -253,10 +262,10 @@ ui <- fluidPage(
                          br(),
                          
                        ),
-                     ), ),
+                     ),),
               
               column(2, align = "center",
-                     uiOutput("image_chr"), ),
+                     uiOutput("image_chr"),),
               column(
                 6,
                 br(),
@@ -284,7 +293,7 @@ ui <- fluidPage(
                 )
               )
             ),
-            fluidRow(column(4, ),
+            fluidRow(column(4,),
                      column(2,
                             uiOutput(
                               "uibuttonwithoutage"
@@ -416,7 +425,7 @@ server <- function(input, output) {
       
       output$plot_cpg01 <- renderUI({
         req(input$row_modif_rows_selected)
-        datarow <- data[input$row_modif_rows_selected, ]
+        datarow <- data[input$row_modif_rows_selected,]
         cpg01 <- datarow[1, DMPs_model[1]] * 100
         prgoressBar(cpg01,
                     color = "primary",
@@ -428,7 +437,7 @@ server <- function(input, output) {
       # output with names
       output$content_name <- renderText({
         req(input$row_modif_rows_selected)
-        datarow <- data[input$row_modif_rows_selected, ]
+        datarow <- data[input$row_modif_rows_selected,]
         paste("ID: ",
               data[input$row_modif_rows_selected, "sample_ID"])
       })
@@ -436,7 +445,7 @@ server <- function(input, output) {
       # output with age
       output$content_age <- renderText({
         req(input$row_modif_rows_selected)
-        datarow <- data[input$row_modif_rows_selected, ]
+        datarow <- data[input$row_modif_rows_selected,]
         # data[input$row_modif_rows_selected,"age"]
         sprintf("Age: %s", data[input$row_modif_rows_selected, "age"])
         
@@ -498,7 +507,7 @@ server <- function(input, output) {
       
       output$content_cpg05 <- renderText({
         req(input$row_modif_rows_selected)
-        datarow <- data[input$row_modif_rows_selected, ]
+        datarow <- data[input$row_modif_rows_selected,]
         if (id_button$number_button == 1) {
           paste(
             "COMER score = 6.9651  -  3.2713 ×",
@@ -526,7 +535,7 @@ server <- function(input, output) {
       
       output$content_cpg06 <- renderText({
         req(input$row_modif_rows_selected)
-        datarow <- data[input$row_modif_rows_selected,]
+        datarow <- data[input$row_modif_rows_selected, ]
         if (id_button$number_button == 1) {
           result_score <-
             6.9651 - 3.2713 * datarow[1, DMPs_model[1]] -  6.6951 * datarow[1, DMPs_model[2]] - 6.3909 *
@@ -551,7 +560,7 @@ server <- function(input, output) {
       
       output$avatarUser <- renderUI({
         req(input$row_modif_rows_selected)
-        datarow <- data[input$row_modif_rows_selected, ]
+        datarow <- data[input$row_modif_rows_selected,]
         index_sex <- data[input$row_modif_rows_selected, "sex"]
         
         if (index_sex == "M") {
@@ -590,7 +599,7 @@ server <- function(input, output) {
             scrollX = TRUE,
             scrollY = "250px",
             
-            lengthMenu = list(c(5, 10, 30, 50,-1),
+            lengthMenu = list(c(5, 10, 30, 50, -1),
                               c('5', '10', '30', '50', 'All'))
           )
         )
@@ -598,7 +607,7 @@ server <- function(input, output) {
       
       output$plot_cpg01 <- renderUI({
         req(input$row_modif_rows_selected)
-        datarow <- data[input$row_modif_rows_selected, ]
+        datarow <- data[input$row_modif_rows_selected,]
         cpg01 <- datarow[1, DMPs_model[1]] * 100
         prgoressBar(cpg01,
                     color = "primary",
@@ -608,7 +617,7 @@ server <- function(input, output) {
       
       output$plot_cpg02 <- renderUI({
         req(input$row_modif_rows_selected)
-        datarow <- data[input$row_modif_rows_selected, ]
+        datarow <- data[input$row_modif_rows_selected,]
         cpg02 <- datarow[1, DMPs_model[2]] * 100
         prgoressBar(cpg02,
                     color = "primary",
@@ -618,7 +627,7 @@ server <- function(input, output) {
       
       output$plot_cpg03 <- renderUI({
         req(input$row_modif_rows_selected)
-        datarow <- data[input$row_modif_rows_selected, ]
+        datarow <- data[input$row_modif_rows_selected,]
         cpg03 <- datarow[1, DMPs_model[3]] * 100
         prgoressBar(cpg03,
                     color = "primary",
@@ -683,7 +692,7 @@ server <- function(input, output) {
       
       output$dotplot_prediction <- renderPlotly({
         req(input$row_modif_rows_selected)
-        userCustom <- data[input$row_modif_rows_selected, ]
+        userCustom <- data[input$row_modif_rows_selected,]
         userCustom$COMER_standard <-
           predict(formula_standard, userCustom)
         userCustom$predictive_status_standard <-
@@ -759,7 +768,7 @@ server <- function(input, output) {
             annotate(
               "text",
               x = c(-2.5, round(userCustom$COMER_standard, 2), 4.6),
-              y = c(0.8, -0.1, 0.8),
+              y = c(0.8,-0.1, 0.8),
               size = c(6, 4, 6),
               label = c("Non-severe", "Current patient", "Severe"),
               color = c("#CC79A7", "#008080", "#FC4E07")
@@ -830,7 +839,7 @@ server <- function(input, output) {
             annotate(
               "text",
               x = c(-2.5, round(userCustom$COMER_standard, 2), 4.6),
-              y = c(0.8, -0.1, 0.8),
+              y = c(0.8,-0.1, 0.8),
               size = c(6, 4, 6),
               label = c("Non-severe", "Current patient", "Severe"),
               color = c("#CC79A7", "#008080", "#FC4E07")
@@ -839,11 +848,20 @@ server <- function(input, output) {
         }
       })
       
+      output$instruct_text <- renderUI({
+        if (is.null(input$row_modif_rows_selected) ||
+            length(input$row_modif_rows_selected) == 0) {
+          HTML(
+            "<h3 style='text-align: center; font-size: 16px; color: #50A625;'>*Please select a data row in the table to prediction*</h3>"
+          )
+        }
+      })
+      
     }
   })
   
   
-  observeEvent(input$buttonPreWithoutAge, {
+  observeEvent(input$buttonPreMultiple, {
     if (!fileUploadedMultiple()) {
       showNotification("Please upload TSV file before running predictions.", type = "warning")
     } else {
@@ -851,7 +869,6 @@ server <- function(input, output) {
       testDT <- test[, c("sample_ID", "age", DMPs_model)]
       testDT[, DMPs_model] <- round(testDT[, DMPs_model], 2)
       
-      # testDT[,DMPs_model]=round(testDT[,DMPs_model],4)
       test_button01 <- testDT
       test_button01$COMER_score <-
         round(predict(formula_standard, test_button01), 2)
@@ -878,7 +895,7 @@ server <- function(input, output) {
             )),
             scrollX = TRUE,
             scrollY = "250px",
-            lengthMenu = list(c(5, 10, 30, 50,-1),
+            lengthMenu = list(c(5, 10, 30, 50, -1),
                               c('5', '10', '30', '50', 'All'))
           )
         )
@@ -920,7 +937,7 @@ server <- function(input, output) {
       })
       
       output$plot2 <- renderDataTable({
-        dataplot2 <- test_button01[, -(2:(ncol(test_button01) - 2))]
+        dataplot2 <- test_button01[,-(2:(ncol(test_button01) - 2))]
         datatable(
           dataplot2,
           extensions = 'Buttons',
@@ -933,58 +950,31 @@ server <- function(input, output) {
             scrollY = "250px",
             dom = 'Bltp',
             buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
-            lengthMenu = list(c(5, 10, 30, 50,-1),
-                              c('5', '10', '30', '50', 'All'))
-          )
-        )
-      })
-    }
-  })
-  
-  observeEvent(input$buttonPreAge, {
-    if (!fileUploadedMultiple()) {
-      showNotification("Please upload TSV file before running predictions.", type = "warning")
-    } else {
-      test <- input_file()
-      testDT <- test[, c("sample_ID", "age", DMPs_model)]
-      testDT[, DMPs_model] <- round(testDT[, DMPs_model], 2)
-      test_button02 <- testDT
-      test_button02$COMER_score <-
-        round(predict(formula_extend, test_button02), 2)
-      test_button02$Prediction <-
-        ifelse(test_button02$COMER_score > cutoff_extend,
-               "Severe",
-               "Non-severe")
-      ##### Personal Prediction
-      output$userdata_table = renderDataTable({
-        testDT[, DMPs_model[1]] <-
-          format(testDT[, DMPs_model[1]], nsmall = 2)
-        testDT[, DMPs_model[2]] <-
-          format(testDT[, DMPs_model[2]], nsmall = 2)
-        testDT[, DMPs_model[3]] <-
-          format(testDT[, DMPs_model[3]], nsmall = 2)
-        datatable(
-          testDT,
-          caption = htmltools::tags$caption(style = 'caption-side: top; text-align: center; color:black;  font-size:150% ;', 'Your samples information') ,
-          options = list(
-            columnDefs = list(list(
-              className = "dt-left", targets = "_all"
-            )),
-            scrollX = TRUE,
-            scrollY = "250px",
-            lengthMenu = list(c(5, 10, 30, 50,-1),
+            lengthMenu = list(c(5, 10, 30, 50, -1),
                               c('5', '10', '30', '50', 'All'))
           )
         )
       })
       
-      output$graph <- renderPlotly({
-        test_button02 %>%
+      
+      dataPreAge <- test[, c("sample_ID", "age", DMPs_model)]
+      dataPreAge[, DMPs_model] <- round(dataPreAge[, DMPs_model], 2)
+      dataPreAge$COMER_score <-
+        round(predict(formula_extend, dataPreAge), 2)
+      
+      dataPreAge$PredictionAge <-
+        ifelse(dataPreAge$COMER_score > cutoff_extend,
+               "Severe",
+               "Non-severe")
+      
+      
+      output$graph2 <- renderPlotly({
+        dataPreAge %>%
           plot_ly() %>%
           add_trace(
-            x = ~ Prediction,
+            x = ~ PredictionAge,
             y = ~ COMER_score,
-            color = ~ Prediction,
+            color = ~ PredictionAge,
             type = "box",
             boxpoints = "all",
             colors = c("#CC79A7", "#FC4E07")
@@ -1015,12 +1005,13 @@ server <- function(input, output) {
           )
       })
       
-      output$plot2 <-
+      output$plot3 <-
         renderDataTable({
-          dataplot2 <- test_button02[, -(2:(ncol(test_button02) - 2))]
-          dataplot2$COMER_score <- round(dataplot2$COMER_score, 2)
+          dataPreAgeCut <- dataPreAge[,-(2:(ncol(dataPreAge) - 2))]
+          dataPreAgeCut$COMER_score <-
+            round(dataPreAgeCut$COMER_score, 2)
           datatable(
-            dataplot2,
+            dataPreAgeCut,
             caption = htmltools::tags$caption(
               style = 'caption-side: top; text-align: center; color:black;  font-size:150% ;',
               'Scores in details and prediction (Age adjustment)'
@@ -1034,11 +1025,20 @@ server <- function(input, output) {
               scrollY = "250px",
               dom = 'Bltp',
               buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
-              lengthMenu = list(c(5, 10, 30, 50,-1),
+              lengthMenu = list(c(5, 10, 30, 50, -1),
                                 c('5', '10', '30', '50', 'All'))
             )
           )
         })
+      
+      output$without_age_text <- renderUI({
+        HTML(
+          "<h3 style='text-align: center; font-size: 30px;'>Prediction without age</h3>"
+        )
+      })
+      output$with_age_text <- renderUI({
+        HTML("<h3 style='text-align: center; font-size: 30px;'>Prediction with age</h3>")
+      })
     }
   })
 }
